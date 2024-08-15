@@ -1,4 +1,4 @@
-package hyejin.tobyspring;
+package hyejin.tobyspring.payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package hyejin.tobyspring;
+package hyejin.tobyspring.exrate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

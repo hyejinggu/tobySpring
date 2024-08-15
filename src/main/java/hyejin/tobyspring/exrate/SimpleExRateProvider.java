@@ -1,5 +1,6 @@
-package hyejin.tobyspring;
+package hyejin.tobyspring.exrate;
 
+import hyejin.tobyspring.payment.ExRateProvider;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
