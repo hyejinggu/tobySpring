@@ -3,6 +3,8 @@ package hyejin.tobyspring.exrate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hyejin.tobyspring.api.ApiExecutor;
+import hyejin.tobyspring.api.ErApiExRateExtractor;
+import hyejin.tobyspring.api.ExRateExtractor;
 import hyejin.tobyspring.api.SimpleApiExecutor;
 import hyejin.tobyspring.payment.ExRateProvider;
 
@@ -22,10 +24,10 @@ public class WebApiExRateProvider implements ExRateProvider {
         String url = "https://open.er-api.com/v6/latest/" + currency;
 
         // client가 callback을 만들어서 템플릿을 호출한다.
-        return runApiForExRate(url, new SimpleApiExecutor());
+        return runApiForExRate(url, new SimpleApiExecutor(), new ErApiExRateExtractor());
     }
 
-    private BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor) {
+    private BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor, ExRateExtractor exRateExtractor) {
         URI uri;
         try {
             uri = new URI(url);
@@ -41,24 +43,10 @@ public class WebApiExRateProvider implements ExRateProvider {
         }
 
         try {
-            return extractExRate(response);
+            return exRateExtractor.extract(response);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private BigDecimal extractExRate(String response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ExRateData data = mapper.readValue(response, ExRateData.class);
-        return data.rates().get("KRW");
-    }
-
-    private String executeApi(URI uri) throws IOException {
-        String response;
-        HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-            response = br.lines().collect(Collectors.joining());
-        }
-        return response;
-    }
 }
