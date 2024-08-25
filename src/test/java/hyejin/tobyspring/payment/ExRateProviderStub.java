@@ -19,7 +19,7 @@ public class ExRateProviderStub implements ExRateProvider {
         this.exRate = exRate;
     }
     @Override
-    public BigDecimal getExRate(String currency) throws IOException {
+    public BigDecimal getExRate(String currency) {
         return exRate;
     }
 }
