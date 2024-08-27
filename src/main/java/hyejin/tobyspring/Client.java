@@ -15,15 +15,6 @@ public class Client {
 
         Payment payment1 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
         System.out.println("payment1: " + payment1);
-        /*System.out.println("-------------------------------------------------\n");
-
-        Payment payment2 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(50.7));
-        System.out.println("payment2: " + payment2);
-
-        TimeUnit.SECONDS.sleep(3);
-
-        Payment payment3 = paymentService.prepare(100L, "USD", BigDecimal.valueOf(60));
-        System.out.println("payment3: " + payment3);*/
     }
 
 }
